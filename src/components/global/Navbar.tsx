@@ -1,4 +1,10 @@
+import { Button } from "../ui/button";
+import { useState } from "react";
+import { ModeToggle } from "../ui/mode-toggle-btn";
+
 function Navbar() {
+  const [darkMode, setDarkMode] = useState(false);
+
   const navItems = [
     {
       href: "/",
@@ -19,27 +25,38 @@ function Navbar() {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <nav className="flex justify-between items-center px-8 py-3">
+    <div>
+      <nav
+        className={`flex justify-between items-center px-8 py-3 relative
+        ${darkMode ? "bg-neutral-900" : null}
+        `}
+      >
         <img
           src="https://a-us.storyblok.com/f/1023015/68x24/8f586a9168/logo.svg"
           alt="logo"
+          className={darkMode ? "brightness-200" : ""}
         />
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-5">
           {navItems.map((nav, index) => (
             <a
               href={nav.href}
               key={index}
-              className="text-sm text-neutral-500 hover:text-neutral-700"
+              className={`text-sm ${
+                darkMode
+                  ? "text-white hover:text-white/55"
+                  : "text-neutral-500 hover:text-neutral-700"
+              }`}
             >
               {nav.title}
             </a>
           ))}
 
-          <button className="bg-blue-500 text-white px-4 py-1 rounded-lg text-md text-shadow-lg shadow-md">
+          <Button className="bg-blue-500 text-shadow shadow text-white hover:bg-blue-600">
             Start free trial
-          </button>
+          </Button>
+
+          <ModeToggle />
         </div>
       </nav>
     </div>
